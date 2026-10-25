@@ -1,0 +1,5 @@
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "reicon"
+      description: "Exclusive product-icon source: dqev/reicon packages/reicon-mcp. Requires a connected Reicon MCP server."

@@ -1,0 +1,25 @@
+/* Vazirmatn 33.0.3 (SIL OFL 1.1, see fonts/OFL.txt), bundled so pages do not
+   depend on Google Fonts, which can take 10s+ or fail on Iranian networks.
+   Only the three Lemon weights are shipped. scripts/inline.mjs turns these
+   url()s into data: URIs when a single self-contained HTML file is needed. */
+@font-face {
+  font-family: Vazirmatn;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/Vazirmatn-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: Vazirmatn;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/Vazirmatn-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: Vazirmatn;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/Vazirmatn-Bold.woff2") format("woff2");
+}

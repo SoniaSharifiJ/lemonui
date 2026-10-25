@@ -1,0 +1,7 @@
+schema_version: "1.1"
+name: yellow-brand-settings-form
+expected_outcome: |
+  settings.html is one self-contained RTL file (fonts and CSS/JS embedded, no network dependencies) with brand #FFC300
+  kept as the brand value but with dark (not white) text on yellow primary buttons so it passes 4.5:1, no dark-mode CSS,
+  an accessible custom or native select where «فروش» is disabled, labelled inputs with linked inline validation errors,
+  native checkboxes, Lemon type scale and radii, and a message that explains the light-brand contrast adjustment.

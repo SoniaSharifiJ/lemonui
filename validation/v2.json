@@ -1,0 +1,23 @@
+{
+  "official_validator": "Skill is valid!",
+  "files": 58,
+  "local_links": 8,
+  "script_syntax_checks": 5,
+  "contrast_checks": 36,
+  "contrast_failures": 0,
+  "offline_font_and_inliner_checks": "passed",
+  "changes_preserved": [
+    "v2 shared CSS/JS components",
+    "offline Vazirmatn fonts and OFL license",
+    "dark theme asset optional per brief",
+    "ERP patterns and evaluation cases",
+    "Reicon MCP-only policy from previous revision",
+    "shared sidebar layout surface runtime"
+  ],
+  "limitations": [
+    "No model evals executed",
+    "No browser rendering: local-file browser observation remains blocked",
+    "Bundled illustrative icons are not verified Reicon assets; that caveat and migration requirement remain explicit"
+  ],
+  "archive_sha256": "da5eded6c6814401070442cf8b2993cd1d390ef784d16320a38f4348ac5473ad"
+}

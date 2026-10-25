@@ -1,0 +1,135 @@
+/* Neutral LIGHT starter. NOT an official Lemon palette export.
+   Copy into the project (e.g. src/theme/tokens.css), then adopt the user's
+   brand: replace the --brand-* primitives, run
+     node <skill>/scripts/contrast.mjs --tokens src/theme/tokens.css
+   and record the supplied values, derived shades and results in the header.
+   Dark mode lives in tokens.dark.css; include it only when the project asks
+   for a dark mode. */
+:root {
+  color-scheme: light;
+
+  /* ---- Primitives (neutral defaults; replace brand values per project) ---- */
+  --neutral-0: #ffffff;
+  --neutral-50: #f5f6f3;
+  --neutral-100: #edf0ed;
+  --neutral-200: #e2e5e2;
+  --neutral-600: #5f6670;
+  --neutral-900: #252938;
+  --brand-base: #252938;     /* the user's exact brand value goes here */
+  --brand-strong: #171b24;   /* hover/pressed: brand darkened ~15–20% */
+  --brand-subtle: #eeefee;   /* tint for avatars, soft highlights */
+
+  /* ---- Surfaces & glass ---- */
+  --bg-canvas: var(--neutral-50);
+  --bg-surface: #fcfcf9;                 /* opaque fallback for glass */
+  --bg-subtle: rgba(226, 229, 226, .55); /* tab rail, action bar */
+  --glow-a: rgba(37, 41, 56, .06);       /* faint canvas variation so blur shows */
+  --glow-b: rgba(196, 170, 120, .10);
+  --glass-fill: rgba(255, 255, 252, .62);
+  --glass-fill-strong: rgba(255, 255, 252, .84);
+  --glass-input: rgba(255, 255, 253, .70);
+  --glass-input-hover: rgba(255, 255, 253, .86);
+  --glass-input-focus: rgba(255, 255, 253, .96);
+  --glass-stroke: rgba(255, 255, 255, .96);   /* the thin light edge */
+  --glass-edge-outer: rgba(37, 41, 56, .07);  /* makes the light edge visible on light canvas */
+  --menu-bg: rgba(255, 255, 253, .94);
+  --hover-fill: rgba(37, 41, 56, .05);
+  --backdrop: rgba(20, 24, 34, .28);
+
+  /* ---- Text ---- */
+  --text-primary: var(--neutral-900);
+  --text-secondary: var(--neutral-600);
+  --text-tertiary: #6a7178;
+
+  /* ---- Actions & selection ----
+     Two roles on purpose: a brand can be fine as a button fill (text sits on it)
+     yet too weak as a 16px checkbox fill or 3px row bar against a surface,
+     which needs 3:1 (WCAG 1.4.11). Keep them separate so one can be tinted
+     without touching the other. */
+  --action-primary-bg: var(--brand-base);
+  --action-primary-hover: var(--brand-strong);
+  --action-primary-text: var(--neutral-0);   /* switch to a dark ink if the brand is light (e.g. yellow) */
+  --selection-accent: var(--brand-base);     /* checkbox fill, selected-row bar, pressed chip check */
+  --selection-accent-text: var(--neutral-0); /* the tick drawn on --selection-accent */
+  --avatar-bg: var(--brand-subtle);
+  --avatar-text: var(--brand-base);
+
+  /* ---- Borders ---- */
+  --border-default: var(--neutral-200);
+  --border-control: #878c90;     /* input/checkbox boundary, >= 3:1 vs surface */
+  --border-strong: #666c71;
+  --border-focus: var(--brand-base); /* keyboard focus ring, >= 3:1 vs surface */
+  --border-active: rgba(102, 108, 113, .28); /* quiet pointer-active edge (not focus) */
+  --divider-subtle: rgba(85, 94, 105, .09);
+  --divider: rgba(85, 94, 105, .14);
+
+  /* ---- Semantic tones (always paired with a text label) ---- */
+  --success-text: #29734f;
+  --success-bg: #eff9f1;
+  --warning-text: #916216;
+  --warning-bg: #fff8e9;
+  --danger-text: #a34b56;
+  --danger-bg: #fdf0f2;
+  --danger-border: rgba(163, 75, 86, .28);
+  --danger-solid-text: var(--neutral-0);
+  --info-text: #325f97;
+  --info-bg: #edf4fd;
+  --neutral-tag-text: #4f5660;
+  --neutral-tag-bg: rgba(95, 102, 112, .10);
+
+  /* ---- Table & loading ---- */
+  --table-surface: rgba(255, 255, 252, .80);
+  --table-header-bg: #f1f2ee;   /* opaque so a sticky header stays legible */
+  --table-row-hover: rgba(248, 249, 246, .9);
+  --table-row-selected: rgba(227, 230, 228, .75); /* Lemon: selected table rows go darker/gray */
+  --skeleton-base: rgba(157, 164, 168, .14);
+  --skeleton-shine: rgba(255, 255, 252, .80);
+
+  /* ---- Type: Lemon sizes mapped to product roles ---- */
+  --font-family: Vazirmatn, Tahoma, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --text-caption: 10px;   /* badges, kbd hints only */
+  --text-small: 12px;     /* table headers, labels, tags, captions */
+  --text-body: 14px;      /* body, cells, buttons, inputs */
+  --text-section: 16px;   /* section titles, brand name */
+  --text-title: 20px;     /* dialog / drawer titles */
+  --text-heading: 24px;   /* page title */
+  --text-metric: 32px;    /* KPI values */
+
+  /* ---- Radius roles (Lemon) ---- */
+  --radius-xs: 4px;    /* checkbox */
+  --radius-sm: 8px;    /* tag, small button, menu item */
+  --radius-md: 12px;   /* input, button, menu, table frame */
+  --radius-lg: 24px;   /* card, panel, dialog */
+  --radius-xl: 32px;
+  --radius-2xl: 64px;
+  --radius-full: 9999px; /* chip, avatar, badge */
+
+  /* ---- Spacing (Lemon 4px scale) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* ---- Depth, blur, motion (project defaults, not Lemon-published values) ---- */
+  --shadow-glass: 0 4px 20px rgba(34, 40, 74, .035);
+  --shadow-focus: 0 8px 28px rgba(34, 40, 74, .07);
+  --shadow-pop: 0 12px 32px rgba(20, 26, 40, .14);
+  --shadow-brand: 0 4px 12px rgba(37, 41, 56, .20); /* tint with the brand rgb */
+  --blur-regular: 24px;
+  --blur-panel: 48px;
+  --blur-chip: 12px;
+  --blur-modal: 40px;
+  --motion-fast: 160ms;
+  --motion-default: 240ms;
+  --ease-standard: cubic-bezier(.22, 1, .36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-fast: 0ms; --motion-default: 0ms; }
+}

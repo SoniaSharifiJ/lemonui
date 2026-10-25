@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: invoice-list-teal-brand
+expected_outcome: |
+  invoices.html is an RTL Persian Lemon-style list page in light and dark mode with brand #0F766E kept exactly,
+  showing exactly the 8 supplied rows (no invented rows), invoice numbers as Latin LTR codes, dates and amounts
+  in Persian digits, status tags with text, working search/status filter/multi-select with a mixed header state,
+  a confirmation before «ابطال», fonts that do not depend on Google Fonts, the int32-max amount flagged as
+  implausible instead of altered, and a final message that reports contrast results and what was verified.

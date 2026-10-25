@@ -1,0 +1,77 @@
+/* Optional DARK mapping ("smoked" glass). Load after tokens.template.css, only
+   when the project wants a dark mode. Activated by <html data-theme="dark">.
+   To also follow the OS setting, duplicate this block inside
+   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { ... } }.
+
+   Brand on dark: keep the user's brand as --action-primary-bg when white text
+   on it is >= 4.5:1. Check --selection-accent and --border-focus against
+   the dark surfaces separately. Brands that are mid-dark (blues, purples, reds)
+   usually land at 2–3:1 there, so lighten them (contrast.mjs --suggest) for
+   those two roles only. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-canvas: #0f131b;
+  --bg-surface: #171c26;
+  --bg-subtle: rgba(255, 255, 255, .05);
+  --glow-a: rgba(120, 140, 190, .12);
+  --glow-b: rgba(196, 170, 120, .07);
+  --glass-fill: rgba(26, 32, 44, .66);
+  --glass-fill-strong: rgba(32, 39, 53, .86);
+  --glass-input: rgba(255, 255, 255, .04);
+  --glass-input-hover: rgba(255, 255, 255, .07);
+  --glass-input-focus: rgba(255, 255, 255, .10);
+  --glass-stroke: rgba(255, 255, 255, .08);
+  --glass-edge-outer: rgba(0, 0, 0, .30);
+  --menu-bg: rgba(32, 39, 53, .96);
+  --hover-fill: rgba(255, 255, 255, .06);
+  --backdrop: rgba(0, 0, 0, .50);
+
+  --text-primary: #e8eaee;
+  --text-secondary: #a6adb8;
+  --text-tertiary: #959ca8;
+
+  /* Neutral starter: Lemon's dark primary is a light fill with dark ink.
+     With a brand, set --action-primary-bg to the brand (if white text passes)
+     and --selection-accent / --border-focus to a lightened brand tint. */
+  --action-primary-bg: #e8eaee;
+  --action-primary-hover: #ffffff;
+  --action-primary-text: #121722;
+  --selection-accent: #e8eaee;
+  --selection-accent-text: #121722;
+  --avatar-bg: rgba(255, 255, 255, .10);
+  --avatar-text: #e8eaee;
+
+  --border-default: rgba(255, 255, 255, .10);
+  --border-control: #7d8592;
+  --border-strong: #a6adb8;
+  --border-focus: #c3c9d3;
+  --border-active: rgba(195, 201, 211, .30);
+  --divider-subtle: rgba(255, 255, 255, .06);
+  --divider: rgba(255, 255, 255, .10);
+
+  --success-text: #7fd1a3;
+  --success-bg: rgba(41, 115, 79, .24);
+  --warning-text: #e8b964;
+  --warning-bg: rgba(145, 98, 22, .26);
+  --danger-text: #f08f9b;
+  --danger-bg: rgba(163, 75, 86, .24);
+  --danger-border: rgba(240, 143, 155, .30);
+  --danger-solid-text: #1a0d10;
+  --info-text: #8fb6ec;
+  --info-bg: rgba(50, 95, 151, .28);
+  --neutral-tag-text: #c3c9d3;
+  --neutral-tag-bg: rgba(255, 255, 255, .08);
+
+  --table-surface: rgba(22, 27, 37, .72);
+  --table-header-bg: #1d232f;
+  --table-row-hover: rgba(255, 255, 255, .035);
+  --table-row-selected: rgba(255, 255, 255, .08);
+  --skeleton-base: rgba(255, 255, 255, .06);
+  --skeleton-shine: rgba(255, 255, 255, .13);
+
+  --shadow-glass: 0 4px 24px rgba(0, 0, 0, .25);
+  --shadow-focus: 0 8px 28px rgba(0, 0, 0, .35);
+  --shadow-pop: 0 16px 40px rgba(0, 0, 0, .45);
+  --shadow-brand: 0 4px 14px rgba(0, 0, 0, .35);
+}

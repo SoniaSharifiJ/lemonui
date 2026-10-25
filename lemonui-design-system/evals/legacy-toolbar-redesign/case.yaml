@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: legacy-toolbar-redesign
+expected_outcome: |
+  workorders.html replaces the 14-button toolbar with a selection-driven action bar (actions disabled until rows are selected,
+  single-row actions disabled for multi-selection, destructive actions confirmed, variants grouped into menus, original
+  Persian action labels kept), replaces drag-to-group with a group-by control, shows status as tags plus filter chips,
+  shows warranty as text rather than read-only checkboxes, hides or justifies the always-empty columns, labels the 5 rows as
+  sample data, and explains each change to the user.

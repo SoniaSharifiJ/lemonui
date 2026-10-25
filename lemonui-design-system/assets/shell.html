@@ -1,0 +1,464 @@
+<!doctype html>
+<!-- Lemon UI starter: RTL ERP list screen (references/erp-list-pattern.md).
+     Copy this folder's fonts/, fonts.css, tokens.template.css, (tokens.dark.css),
+     components.css and lemon.js next to the page, replace the brand tokens and
+     the SAMPLE data, then for a single-file deliverable run:
+       node <skill>/scripts/inline.mjs page.html page.standalone.html
+     Rows below are SAMPLE DATA for the template, not real records. -->
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فهرست سفارش‌ها · نمونه Lemon UI</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tokens.template.css">
+<link rel="stylesheet" href="tokens.dark.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  /* Page-level overrides go here; keep component rules in components.css. */
+  html, body { height: 100%; }
+  body { overflow: hidden; }
+</style>
+</head>
+<body class="lm">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="lm-i-sidebar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M15 4v16"/></symbol>
+    <symbol id="lm-i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="lm-i-edit" viewBox="0 0 24 24"><path d="M4 20h4L18.5 9.5a2.1 2.1 0 0 0-3-3L5 17v3z"/><path d="M13.5 6.5l3 3"/></symbol>
+    <symbol id="lm-i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></symbol>
+    <symbol id="lm-i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.8-4M4 3v4h4M4 13a8 8 0 0 0 14.8 4M20 21v-4h-4"/></symbol>
+    <symbol id="lm-i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="lm-i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="lm-i-printer" viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7" rx="1"/></symbol>
+    <symbol id="lm-i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="lm-i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="lm-i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="lm-i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="lm-i-chev-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="lm-i-chev-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="lm-i-chev-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="lm-i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+    <symbol id="lm-i-filter" viewBox="0 0 24 24"><path d="M4 5h16l-6 7.5V19l-4 2v-8.5z"/></symbol>
+    <symbol id="lm-i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+    <symbol id="lm-i-box" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/></symbol>
+    <symbol id="lm-i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3"/></symbol>
+    <symbol id="lm-i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+    <symbol id="lm-i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+    <symbol id="lm-i-sort" viewBox="0 0 24 24"><path d="M8 5v14M4 9l4-4 4 4M16 19V5M12 15l4 4 4-4"/></symbol>
+    <symbol id="lm-i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="lm-i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+    <symbol id="lm-i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.7 4H7.3a2 2 0 0 0-1.8 1.1z"/></symbol>
+    <symbol id="lm-i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+    <symbol id="lm-i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  </defs>
+</svg>
+<a class="lm-skip" href="#main">رفتن به محتوای اصلی</a>
+
+<div class="lm-app" id="app">
+  <aside class="lm-sidebar lm-glass" id="sidebar" aria-label="منوی سامانه">
+    <div class="lm-brand">
+      <div class="lm-brand__mark" aria-hidden="true">L</div>
+      <div><div class="lm-brand__name">سامانه نمونه</div><div class="lm-brand__sub">دسترسی به بخش‌های سامانه</div></div>
+    </div>
+    <div class="lm-field">
+      <svg class="lm-i lm-i--sm lm-field__lead" aria-hidden="true"><use href="#lm-i-search"/></svg>
+      <input type="search" data-lm-nav-filter placeholder="جستجو در منوها…" aria-label="جستجو در منوها" autocomplete="off">
+    </div>
+    <nav class="lm-nav" aria-label="بخش‌های سامانه">
+      <div class="lm-nav__group">
+        <button class="lm-nav__group-btn" type="button" aria-expanded="true" aria-controls="ng-sales">
+          <svg class="lm-i" aria-hidden="true"><use href="#lm-i-box"/></svg>فروش
+          <svg class="lm-i lm-i--sm lm-nav__chev" aria-hidden="true"><use href="#lm-i-chev-down"/></svg>
+        </button>
+        <ul class="lm-nav__list" id="ng-sales">
+          <li><a class="lm-nav__item" href="#">پیش‌فاکتورها</a></li>
+          <li><a class="lm-nav__item" href="#" aria-current="page">سفارش‌ها</a></li>
+          <li><a class="lm-nav__item" href="#">فاکتورها</a></li>
+        </ul>
+      </div>
+      <div class="lm-nav__group">
+        <button class="lm-nav__group-btn" type="button" aria-expanded="false" aria-controls="ng-stock">
+          <svg class="lm-i" aria-hidden="true"><use href="#lm-i-file"/></svg>انبار
+          <svg class="lm-i lm-i--sm lm-nav__chev" aria-hidden="true"><use href="#lm-i-chev-down"/></svg>
+        </button>
+        <ul class="lm-nav__list" id="ng-stock" hidden>
+          <li><a class="lm-nav__item" href="#">رسید انبار</a></li>
+          <li><a class="lm-nav__item" href="#">حواله انبار</a></li>
+        </ul>
+      </div>
+      <p class="lm-nav__empty" hidden>منویی با این عنوان یافت نشد.</p>
+    </nav>
+    <div class="lm-sidebar__foot"><span class="lm-status-dot" aria-hidden="true"></span>متصل · سال مالی ۱۴۰۵</div>
+  </aside>
+  <div class="lm-scrim" hidden></div>
+
+  <div class="lm-main">
+    <header class="lm-topbar lm-glass">
+      <button class="lm-btn lm-btn--tertiary lm-btn--icon" type="button" data-lm-nav-toggle aria-controls="sidebar" aria-expanded="true" aria-label="منوی سامانه">
+        <svg class="lm-i" aria-hidden="true"><use href="#lm-i-sidebar"/></svg>
+      </button>
+      <nav class="lm-crumbs" aria-label="مسیر صفحه">
+        <span class="lm-crumbs__parent">فروش</span>
+        <svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-chev-left"/></svg>
+        <span aria-current="page">سفارش‌ها</span>
+      </nav>
+      <dl class="lm-ctx" aria-label="زمینه کاری جاری">
+        <div><dt>شرکت جاری</dt><dd>شرکت نمونه</dd></div>
+        <div class="lm-ctx__optional"><dt>شعبه جاری</dt><dd>دفتر مرکزی</dd></div>
+        <div><dt>سال مالی</dt><dd>۱۴۰۵</dd></div>
+      </dl>
+      <div class="lm-topbar__actions">
+        <button class="lm-btn lm-btn--secondary lm-btn--icon" id="themeBtn" type="button" aria-pressed="false" aria-label="حالت تیره">
+          <svg class="lm-i" aria-hidden="true"><use href="#lm-i-moon"/></svg>
+        </button>
+        <div class="lm-menu-wrap">
+          <button class="lm-user-btn" id="userBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu">
+            <span class="lm-avatar" aria-hidden="true"><svg class="lm-i lm-i--sm"><use href="#lm-i-user"/></svg></span>
+            <span class="lm-user-btn__meta"><small>نام کاربر</small><span>کاربر نمونه</span></span>
+            <svg class="lm-i lm-i--sm lm-nav__chev" aria-hidden="true"><use href="#lm-i-chev-down"/></svg>
+          </button>
+          <div class="lm-menu lm-flip-x" role="menu" id="userMenu" aria-labelledby="userBtn" hidden>
+            <button type="button" role="menuitem" tabindex="-1">تنظیمات کاربری</button>
+            <div class="lm-menu__sep" role="separator"></div>
+            <button type="button" role="menuitem" tabindex="-1" class="lm-danger"><svg class="lm-i lm-i--sm lm-flip-rtl" aria-hidden="true"><use href="#lm-i-logout"/></svg>خروج</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="lm-workspace lm-glass" id="main" tabindex="-1">
+      <div class="lm-ws-head">
+        <div>
+          <h1>سفارش‌ها</h1>
+          <p class="lm-ws-head__sub">داده‌ی نمایشی · <span class="lm-ltr lm-num" id="totalRows"></span> ردیف</p>
+        </div>
+        <div class="lm-tabs" role="tablist" aria-label="نماهای سفارش">
+          <button class="lm-tab" role="tab" type="button" id="tab-list" aria-selected="true" aria-controls="panel-list">لیست</button>
+          <button class="lm-tab" role="tab" type="button" id="tab-report" aria-selected="false" aria-controls="panel-report">گزارش</button>
+        </div>
+        <div class="lm-ws-head__actions">
+          <button class="lm-btn lm-btn--primary" type="button" id="btnNew"><svg class="lm-i" aria-hidden="true"><use href="#lm-i-plus"/></svg>سفارش جدید</button>
+        </div>
+      </div>
+
+      <section class="lm-panel" id="panel-list" role="tabpanel" aria-labelledby="tab-list">
+        <div class="lm-toolbar">
+          <div class="lm-field lm-toolbar__search">
+            <svg class="lm-i lm-i--sm lm-field__lead" aria-hidden="true"><use href="#lm-i-search"/></svg>
+            <input id="q" type="search" placeholder="شماره سفارش، مشتری یا وضعیت…" aria-label="جستجو در سفارش‌ها" aria-keyshortcuts="/" autocomplete="off">
+            <button class="lm-field__clear" id="qClear" type="button" aria-label="پاک کردن جستجو" hidden><svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-x"/></svg></button>
+            <kbd class="lm-kbd" aria-hidden="true">/</kbd>
+          </div>
+          <div class="lm-chips" role="group" aria-label="فیلتر وضعیت" id="chips"></div>
+          <div class="lm-toolbar__end">
+            <button class="lm-btn lm-btn--secondary" id="advToggle" type="button" aria-expanded="false" aria-controls="adv">
+              <svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-filter"/></svg>جستجوی پیشرفته<span class="lm-badge" id="advCount" hidden></span>
+            </button>
+            <div class="lm-menu-wrap">
+              <button class="lm-btn lm-btn--secondary lm-btn--icon" id="viewBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="viewMenu" aria-label="نمای جدول" title="نمای جدول">
+                <svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-sliders"/></svg>
+              </button>
+              <div class="lm-menu lm-flip-x" role="menu" id="viewMenu" aria-labelledby="viewBtn" hidden>
+                <div role="group" aria-labelledby="vm-d">
+                  <div class="lm-menu__label" id="vm-d">تراکم ردیف‌ها</div>
+                  <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-density="compact">فشرده<svg class="lm-i lm-i--sm lm-menu__check" aria-hidden="true"><use href="#lm-i-check"/></svg></button>
+                  <button type="button" role="menuitemradio" tabindex="-1" aria-checked="true" data-density="default">پیش‌فرض<svg class="lm-i lm-i--sm lm-menu__check" aria-hidden="true"><use href="#lm-i-check"/></svg></button>
+                  <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-density="comfortable">باز<svg class="lm-i lm-i--sm lm-menu__check" aria-hidden="true"><use href="#lm-i-check"/></svg></button>
+                </div>
+                <div class="lm-menu__sep" role="separator"></div>
+                <div role="group" aria-labelledby="vm-c">
+                  <div class="lm-menu__label" id="vm-c">ستون‌های اختیاری</div>
+                  <button type="button" role="menuitemcheckbox" tabindex="-1" aria-checked="true" data-col="note">توضیحات<svg class="lm-i lm-i--sm lm-menu__check" aria-hidden="true"><use href="#lm-i-check"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <button class="lm-btn lm-btn--secondary lm-btn--icon" id="btnRefresh" type="button" aria-label="به‌روزآوری"><svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-refresh"/></svg></button>
+          </div>
+        </div>
+
+        <div class="lm-filter-panel" id="adv" hidden>
+          <form id="advForm" novalidate>
+            <div>
+              <label class="lm-label" for="fCustomer">مشتری</label>
+              <div class="lm-field"><input id="fCustomer" autocomplete="off"></div>
+            </div>
+            <div>
+              <label class="lm-label" for="fFrom">از تاریخ</label>
+              <div class="lm-field"><svg class="lm-i lm-i--sm lm-field__lead" aria-hidden="true"><use href="#lm-i-calendar"/></svg><input id="fFrom" dir="ltr" placeholder="۱۴۰۵/۰۷/۰۱" aria-describedby="fFromErr" autocomplete="off"></div>
+              <p class="lm-error" id="fFromErr" hidden></p>
+            </div>
+            <div>
+              <label class="lm-label" for="fChannel">کانال فروش</label>
+              <select id="fChannel" name="channel">
+                <option value="">همه</option>
+                <option value="web">فروشگاه اینترنتی</option>
+                <option value="agent">نماینده</option>
+                <option value="phone">تلفنی</option>
+                <option value="legacy" disabled>سامانه قدیمی (غیرفعال)</option>
+              </select>
+            </div>
+            <div class="lm-form-actions">
+              <button class="lm-btn lm-btn--tertiary" type="reset">بازنشانی</button>
+              <button class="lm-btn lm-btn--secondary" type="submit"><svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-check"/></svg>اعمال فیلتر</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="lm-actionbar" id="actionbar" role="group" aria-label="عملیات روی ردیف‌های انتخاب‌شده">
+          <span class="lm-actionbar__info" id="selInfo" aria-live="polite"></span>
+          <button class="lm-btn lm-btn--tertiary lm-btn--sm" id="selClear" type="button" hidden>لغو انتخاب</button>
+          <span class="lm-actionbar__sep" aria-hidden="true"></span>
+          <button class="lm-btn lm-btn--secondary lm-btn--sm" type="button" data-act="ویرایش" data-single><svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-edit"/></svg>ویرایش</button>
+          <button class="lm-btn lm-btn--secondary lm-btn--sm" type="button" data-act="تائید"><svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-check"/></svg>تائید</button>
+          <div class="lm-menu-wrap">
+            <button class="lm-btn lm-btn--secondary lm-btn--sm" id="printBtn" type="button" data-needs-selection aria-haspopup="menu" aria-expanded="false" aria-controls="printMenu"><svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-printer"/></svg>چاپ<svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-chev-down"/></svg></button>
+            <div class="lm-menu" role="menu" id="printMenu" aria-labelledby="printBtn" hidden>
+              <button type="button" role="menuitem" tabindex="-1" data-act="چاپ سفارش">چاپ سفارش</button>
+              <button type="button" role="menuitem" tabindex="-1" data-act="چاپ برای مشتری">چاپ برای مشتری</button>
+            </div>
+          </div>
+          <button class="lm-btn lm-btn--danger lm-btn--sm lm-actionbar__end" type="button" data-act="حذف" data-confirm><svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-trash"/></svg>حذف</button>
+        </div>
+
+        <div class="lm-table-wrap" id="tableWrap" role="region" aria-label="جدول سفارش‌ها" tabindex="0">
+          <table class="lm-table" id="grid" data-density="default">
+            <caption class="lm-sr-only">فهرست سفارش‌ها (داده نمایشی)</caption>
+            <thead>
+              <tr>
+                <th class="lm-col-select" scope="col"><label class="lm-checkbox-hit"><input type="checkbox" class="lm-checkbox" id="selAll" aria-label="انتخاب همه ردیف‌های نمایش‌داده‌شده"></label></th>
+                <th scope="col" aria-sort="none" data-sort="code"><button class="lm-th-sort" type="button">شماره سفارش<svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-sort"/></svg></button></th>
+                <th scope="col">مشتری</th>
+                <th scope="col" aria-sort="none" data-sort="date"><button class="lm-th-sort" type="button">تاریخ ثبت<svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-sort"/></svg></button></th>
+                <th scope="col" class="lm-col-num" aria-sort="none" data-sort="amount"><button class="lm-th-sort" type="button">مبلغ (ریال)<svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-sort"/></svg></button></th>
+                <th scope="col">وضعیت</th>
+                <th scope="col" data-col="note">توضیحات</th>
+                <th scope="col"><span class="lm-sr-only">جزئیات</span></th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <div class="lm-state" id="state" hidden></div>
+        </div>
+
+        <div class="lm-tfoot">
+          <span id="footInfo" aria-live="polite"></span>
+          <nav class="lm-pager" aria-label="صفحه‌بندی">
+            <button class="lm-pg" type="button" disabled aria-label="صفحه قبل"><svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-chev-right"/></svg></button>
+            <button class="lm-pg" type="button" aria-current="page" aria-label="صفحه ۱">۱</button>
+            <button class="lm-pg" type="button" disabled aria-label="صفحه بعد"><svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-chev-left"/></svg></button>
+          </nav>
+        </div>
+      </section>
+
+      <section class="lm-panel" id="panel-report" role="tabpanel" aria-labelledby="tab-report" hidden>
+        <div class="lm-state">
+          <div class="lm-state__icon" aria-hidden="true"><svg class="lm-i"><use href="#lm-i-printer"/></svg></div>
+          <h3>گزارش</h3>
+          <p>این بخش در قالب نمونه خالی است.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<dialog class="lm-drawer" id="drawer" aria-labelledby="drTitle">
+  <div class="lm-drawer__inner">
+    <div class="lm-drawer__head">
+      <div><p class="lm-drawer__kicker">سفارش</p><h2 id="drTitle"></h2><span id="drStatus"></span></div>
+      <button class="lm-btn lm-btn--tertiary lm-btn--icon" type="button" id="drClose" aria-label="بستن" autofocus><svg class="lm-i" aria-hidden="true"><use href="#lm-i-x"/></svg></button>
+    </div>
+    <div class="lm-drawer__body" id="drBody"></div>
+    <div class="lm-drawer__foot">
+      <button class="lm-btn lm-btn--secondary" type="button" id="drClose2">بستن</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="lm-dialog" id="confirm" aria-labelledby="cfTitle" aria-describedby="cfText">
+  <form method="dialog">
+    <h2 id="cfTitle"></h2>
+    <p id="cfText">آیا از انجام این عملیات اطمینان دارید؟</p>
+    <div class="lm-dialog__actions">
+      <button class="lm-btn lm-btn--secondary" value="cancel">انصراف</button>
+      <button class="lm-btn lm-btn--danger-solid" value="ok" id="cfOk"></button>
+    </div>
+  </form>
+</dialog>
+
+<script src="lemon.js"></script>
+<script>
+(() => {
+  'use strict';
+  const { fa, en, faNum, menu, select, tabs, toast, theme, navigation } = LemonUI;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const ic = n => `<svg class="lm-i lm-i--sm" aria-hidden="true"><use href="#lm-i-${n}"/></svg>`;
+
+  // SAMPLE DATA: replace with the real source. Codes stay Latin + LTR; dates/amounts display in Persian digits.
+  const ROWS = [
+    { id: 'SO-140507-0012', customer: 'بازرگانی آرین', date: '1405/07/24', amount: 184500000, status: 'تحویل شده', note: '' },
+    { id: 'SO-140507-0011', customer: 'فروشگاه پارسه', date: '1405/07/23', amount: 42750000, status: 'در حال ارسال', note: 'ارسال با پیک' },
+    { id: 'SO-140507-0010', customer: 'شرکت نوین ساز', date: '1405/07/21', amount: 960000000, status: 'نیازمند اقدام', note: 'کسری موجودی' },
+    { id: 'SO-140507-0009', customer: 'بازرگانی آرین', date: '1405/07/20', amount: 12300000, status: 'لغو شده', note: '' },
+    { id: 'SO-140507-0008', customer: 'کارگاه مهرگان', date: '1405/07/18', amount: 305000000, status: 'ثبت شده', note: '' }
+  ];
+  const TONE = { 'ثبت شده': 'neutral', 'در حال ارسال': 'info', 'تحویل شده': 'success', 'نیازمند اقدام': 'warning', 'لغو شده': 'danger' };
+  const state = { q: '', status: '', customer: '', from: '', sort: { key: '', dir: 'none' }, selected: new Set(), visible: [] };
+  const tbody = $('#tbody'), grid = $('#grid'), stateEl = $('#state'), selAll = $('#selAll');
+  $('#totalRows').textContent = faNum(ROWS.length);
+
+  const nil = label => `<span class="lm-nil" aria-hidden="true">—</span><span class="lm-sr-only">${label}</span>`;
+  const tag = s => `<span class="lm-tag lm-tone-${TONE[s] || 'neutral'}">${esc(s)}</span>`;
+
+  // Status chips built from the tone map so labels and colours never drift apart.
+  $('#chips').innerHTML = `<button class="lm-chip" type="button" aria-pressed="true" data-status="">${ic('check').replace('lm-i ', 'lm-i lm-chip__check ')}همه</button>` +
+    Object.keys(TONE).map(s => `<button class="lm-chip" type="button" aria-pressed="false" data-status="${s}"><span class="lm-chip__dot lm-tone-${TONE[s]}" aria-hidden="true"></span>${ic('check').replace('lm-i ', 'lm-i lm-chip__check ')}${s}</button>`).join('');
+
+  function rows() {
+    const q = en(state.q).trim().toLowerCase();
+    let list = ROWS.filter(r =>
+      (!state.status || r.status === state.status) &&
+      (!q || [r.id.toLowerCase(), r.customer, r.status, String(r.amount)].some(v => v.includes(q))) &&
+      (!state.customer || r.customer.includes(state.customer)) &&
+      (!state.from || r.date >= state.from));
+    const { key, dir } = state.sort;
+    if (key && dir !== 'none') { const m = dir === 'ascending' ? 1 : -1; list = [...list].sort((a, b) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0) * m); }
+    return list;
+  }
+  function render() {
+    const list = rows();
+    state.visible = list.map(r => r.id);
+    for (const id of [...state.selected]) if (!state.visible.includes(id)) state.selected.delete(id);
+    grid.hidden = !list.length;
+    stateEl.hidden = !!list.length;
+    if (!list.length) {
+      stateEl.innerHTML = `<div class="lm-state__icon" aria-hidden="true"><svg class="lm-i"><use href="#lm-i-search"/></svg></div><h3>نتیجه‌ای یافت نشد</h3><p>هیچ سفارشی با فیلترهای فعلی مطابقت ندارد.</p><button class="lm-btn lm-btn--secondary" type="button" id="clearAll">پاک کردن فیلترها</button>`;
+      $('#clearAll').addEventListener('click', clearAll);
+    }
+    tbody.innerHTML = list.map(r => `<tr data-id="${r.id}">
+      <td class="lm-col-select"><label class="lm-checkbox-hit"><input type="checkbox" class="lm-checkbox" data-id="${r.id}" aria-label="انتخاب سفارش ${r.id}"></label></td>
+      <td><span class="lm-code lm-ltr">${r.id}</span></td>
+      <td>${esc(r.customer)}</td>
+      <td><span class="lm-ltr lm-num">${fa(r.date)}</span></td>
+      <td class="lm-col-num"><span class="lm-ltr lm-num">${faNum(r.amount)}</span></td>
+      <td>${tag(r.status)}</td>
+      <td data-col="note">${r.note ? esc(r.note) : nil('ندارد')}</td>
+      <td><button class="lm-btn lm-btn--tertiary lm-btn--sm lm-btn--icon" type="button" data-detail="${r.id}" aria-label="جزئیات سفارش ${r.id}" title="جزئیات">${ic('eye')}</button></td>
+    </tr>`).join('');
+    syncColumns();
+    syncSelection();
+    $('#footInfo').textContent = `${faNum(list.length)} از ${faNum(ROWS.length)} ردیف`;
+  }
+  function syncSelection() {
+    const n = state.selected.size, vis = state.visible, k = vis.filter(id => state.selected.has(id)).length;
+    selAll.checked = vis.length > 0 && k === vis.length;
+    selAll.indeterminate = k > 0 && k < vis.length;   // mixed state is announced as "mixed"
+    $('#selInfo').textContent = n ? `${faNum(n)} سفارش انتخاب شده` : 'ردیفی انتخاب نشده است';
+    $('#actionbar').classList.toggle('has-selection', n > 0);
+    $('#selClear').hidden = !n;
+    $$('#actionbar [data-act], #actionbar [data-needs-selection]').forEach(b => { if (!b.closest('.lm-menu')) b.disabled = !n || (b.hasAttribute('data-single') && n !== 1); });
+    $$('tr[data-id]', tbody).forEach(tr => { const on = state.selected.has(tr.dataset.id); tr.classList.toggle('is-selected', on); tr.querySelector('.lm-checkbox').checked = on; });
+  }
+  let showNote = true;
+  function syncColumns() { $$('[data-col="note"]').forEach(c => (c.hidden = !showNote)); }
+
+  tbody.addEventListener('change', e => { const cb = e.target.closest('.lm-checkbox'); if (cb) { cb.checked ? state.selected.add(cb.dataset.id) : state.selected.delete(cb.dataset.id); syncSelection(); } });
+  tbody.addEventListener('click', e => {
+    const d = e.target.closest('[data-detail]');
+    if (d) return openDrawer(d.dataset.detail);
+    if (e.target.closest('button, a, input, label')) return;
+    const tr = e.target.closest('tr[data-id]');
+    if (tr) { const id = tr.dataset.id; state.selected.has(id) ? state.selected.delete(id) : state.selected.add(id); syncSelection(); }
+  });
+  selAll.addEventListener('change', () => { state.visible.forEach(id => selAll.checked ? state.selected.add(id) : state.selected.delete(id)); syncSelection(); });
+  $('#selClear').addEventListener('click', () => { state.selected.clear(); syncSelection(); selAll.focus(); });
+
+  $$('th[data-sort] .lm-th-sort').forEach(btn => btn.addEventListener('click', () => {
+    const th = btn.closest('th'), key = th.dataset.sort, order = ['none', 'ascending', 'descending'];
+    const next = state.sort.key === key ? order[(order.indexOf(state.sort.dir) + 1) % 3] : 'ascending';
+    state.sort = { key: next === 'none' ? '' : key, dir: next };
+    $$('th[data-sort]').forEach(h => { const d = h === th ? next : 'none'; h.setAttribute('aria-sort', d); h.querySelector('use').setAttribute('href', d === 'ascending' ? '#lm-i-arrow-up' : d === 'descending' ? '#lm-i-arrow-down' : '#lm-i-sort'); });
+    render();
+  }));
+
+  const q = $('#q'), qClear = $('#qClear');
+  q.addEventListener('input', () => { state.q = q.value; qClear.hidden = !q.value; render(); });
+  q.addEventListener('keydown', e => { if (e.key === 'Escape' && q.value) { e.preventDefault(); q.value = ''; q.dispatchEvent(new Event('input')); } });
+  qClear.addEventListener('click', () => { q.value = ''; q.dispatchEvent(new Event('input')); q.focus(); });
+  document.addEventListener('keydown', e => {
+    if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey || e.target.closest('input, textarea, select, [contenteditable="true"]') || document.querySelector('dialog[open]')) return;
+    e.preventDefault(); q.focus();
+  });
+  $('#chips').addEventListener('click', e => { const c = e.target.closest('.lm-chip'); if (!c) return; state.status = c.dataset.status; $$('.lm-chip').forEach(x => x.setAttribute('aria-pressed', String(x === c))); render(); });
+
+  const adv = $('#adv'), advToggle = $('#advToggle'), advForm = $('#advForm');
+  advToggle.addEventListener('click', () => { const open = adv.hidden; adv.hidden = !open; advToggle.setAttribute('aria-expanded', String(open)); if (open) $('#fCustomer').focus(); });
+  select($('#fChannel'));
+  function normDate(s) { s = en(s).trim(); if (!s) return ''; const m = /^(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})$/.exec(s); if (!m || +m[2] > 12 || +m[3] > 31 || +m[2] < 1 || +m[3] < 1) return null; return `${m[1]}/${m[2].padStart(2, '0')}/${m[3].padStart(2, '0')}`; }
+  advForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const fFrom = $('#fFrom'), err = $('#fFromErr'), from = normDate(fFrom.value);
+    fFrom.setAttribute('aria-invalid', String(from === null)); err.hidden = from !== null; err.textContent = from === null ? 'قالب تاریخ درست نیست؛ مثال: ۱۴۰۵/۰۷/۰۱' : '';
+    if (from === null) return fFrom.focus();
+    state.customer = $('#fCustomer').value.trim(); state.from = from;
+    const n = [state.customer, state.from, $('#fChannel').value].filter(Boolean).length;
+    $('#advCount').hidden = !n; $('#advCount').textContent = faNum(n);
+    render();
+  });
+  advForm.addEventListener('reset', () => setTimeout(() => { state.customer = ''; state.from = ''; $('#fFrom').setAttribute('aria-invalid', 'false'); $('#fFromErr').hidden = true; $('#advCount').hidden = true; render(); }));
+  function clearAll() { q.value = ''; state.q = ''; qClear.hidden = true; state.status = ''; $$('.lm-chip').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.status === ''))); advForm.reset(); q.focus(); }
+
+  menu($('#viewBtn'), it => { if (it.dataset.density) grid.dataset.density = it.dataset.density; if (it.dataset.col) { showNote = it.getAttribute('aria-checked') === 'true'; syncColumns(); } });
+  menu($('#userBtn'), it => toast(`«${it.textContent.trim()}» در قالب نمونه پیاده‌سازی نشده است.`));
+  menu($('#printBtn'), it => act(it.dataset.act));
+  const confirmDlg = $('#confirm');
+  function act(name, needsConfirm) {
+    const n = state.selected.size; if (!n) return;
+    if (!needsConfirm) return toast(`«${name}» برای ${faNum(n)} سفارش اجرا شد (نمونه).`);
+    $('#cfTitle').textContent = `${name} ${faNum(n)} سفارش؟`; $('#cfOk').textContent = name;
+    confirmDlg.returnValue = ''; confirmDlg.showModal();
+    confirmDlg.addEventListener('close', () => { if (confirmDlg.returnValue === 'ok') toast(`«${name}» برای ${faNum(n)} سفارش اجرا شد (نمونه).`); }, { once: true });
+  }
+  $$('#actionbar > [data-act]').forEach(b => b.addEventListener('click', () => act(b.dataset.act, b.hasAttribute('data-confirm'))));
+  confirmDlg.addEventListener('click', e => { if (e.target === confirmDlg) confirmDlg.close('cancel'); });
+
+  const drawer = $('#drawer');
+  function openDrawer(id) {
+    const r = ROWS.find(x => x.id === id); if (!r) return;
+    $('#drTitle').innerHTML = `<span class="lm-ltr">${r.id}</span>`; $('#drStatus').innerHTML = tag(r.status);
+    const kv = (k, v, wide) => `<div${wide ? ' class="lm-kv__wide"' : ''}><dt>${k}</dt><dd>${v}</dd></div>`;
+    $('#drBody').innerHTML = `<section class="lm-drawer__section"><h3>مشخصات</h3><dl class="lm-kv">
+      ${kv('مشتری', esc(r.customer), true)}${kv('تاریخ ثبت', `<span class="lm-ltr lm-num">${fa(r.date)}</span>`)}${kv('مبلغ (ریال)', `<span class="lm-ltr lm-num">${faNum(r.amount)}</span>`)}
+      ${kv('توضیحات', r.note ? esc(r.note) : nil('ندارد'), true)}</dl></section>`;
+    drawer.showModal();
+  }
+  [$('#drClose'), $('#drClose2')].forEach(b => b.addEventListener('click', () => drawer.close()));
+  drawer.addEventListener('click', e => { if (e.target === drawer) drawer.close(); });
+
+  // Skeleton refresh. DEMO_DELAY only simulates a request; drive this from real request state.
+  const DEMO_DELAY = 600; let seq = 0;
+  $('#btnRefresh').addEventListener('click', () => {
+    const my = ++seq, wrap = $('#tableWrap');
+    wrap.setAttribute('aria-busy', 'true'); grid.hidden = false; stateEl.hidden = true;
+    tbody.innerHTML = Array.from({ length: 5 }, () => `<tr aria-hidden="true">${[16, 120, 110, 80, 90, 72, 90, 32].map(w => `<td><span class="lm-skeleton" style="width:${w}px"></span></td>`).join('')}</tr>`).join('');
+    setTimeout(() => { if (my !== seq) return; wrap.removeAttribute('aria-busy'); render(); }, DEMO_DELAY);
+  });
+
+  tabs($('.lm-tabs'));
+  $('#btnNew').addEventListener('click', () => toast('فرم سفارش جدید در قالب نمونه وجود ندارد.'));
+  navigation($('#app'));
+  $$('.lm-nav__item').forEach(a => a.addEventListener('click', e => { e.preventDefault(); if (a.getAttribute('aria-current') !== 'page') toast(`صفحه «${a.textContent.trim()}» در قالب نمونه وجود ندارد.`); }));
+
+  const themeBtn = $('#themeBtn');
+  const syncThemeBtn = t => { themeBtn.setAttribute('aria-pressed', String(t === 'dark')); themeBtn.querySelector('use').setAttribute('href', t === 'dark' ? '#lm-i-sun' : '#lm-i-moon'); };
+  document.addEventListener('lm:themechange', e => syncThemeBtn(e.detail));
+  themeBtn.addEventListener('click', () => theme.toggle());
+  theme.restore('light');
+
+  render();
+})();
+</script>
+</body>
+</html>
